@@ -15,13 +15,14 @@ app.post('/login', (req, res)=>{
        {
         res.json("Successfully Login");
         //take to the table page
+        // res.json('/form')
        }
       else{
         res.json("Invalid Credentials");
       }
     }
    else{
-      res.redirect('/register');
+      res.json("The email is not in our database. Please register first!");
    }
   })
 })

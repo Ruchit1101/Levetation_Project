@@ -1,8 +1,8 @@
 import { useState } from "react";
-// import { Link } from "react-router-dom";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 function Login(){
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const [email, setEmail]=useState('');
     const [password, setPassword]=useState('');
     const navigate = useNavigate();
@@ -11,14 +11,21 @@ function Login(){
        axios.post('http://localhost:3000/login',{email, password}).then((res)=>{
         console.log(res)
         if(res.data === "Successfully Login"){
-            navigate('/home')
+            navigate('/form');
         }
-       navigate('/login')
+       else{
+        setErrorMessage("Wrong credentials. Please try again.");
+
+       }
       })
       .catch(error=>{
         console.log(error);
       });
     };
+    const closePopup = () =>{
+      setErrorMessage(null);
+    };
+    
   return(
     <div className="grid grid-cols-1 gap-9 sm:grid-cols-2">
     <div className="flex flex-col gap-9">
@@ -95,6 +102,14 @@ function Login(){
                 </button>
               </div>
             </form>
+            {errorMessage && (
+               <div className="popup">
+               <div className="popup-content">
+                 <span className="close" onClick={closePopup}>&times;</span>
+                 {errorMessage}
+               </div>
+             </div>
+           )}
           </div>
 
         
