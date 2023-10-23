@@ -3,6 +3,7 @@ import Signup from "./authorization/Signup";
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Form from "./form/Form";
 import Form2 from "./form/Form2";
+import FormData from "./form/FormData";
 function App() {
   return (
     <>
@@ -14,7 +15,7 @@ function App() {
        <Route path='/register' element={<Signup/>}></Route>
        <Route path='/form' element={<Form/>}></Route>
        <Route path='/form2' element={<Form2/>}></Route>
-       {/* <Route path='/data' element={<FormData/>}</Routes> */}
+       <Route path='/data' element={<FormData/>}></Route>
        </Routes>
       </BrowserRouter>
     </>

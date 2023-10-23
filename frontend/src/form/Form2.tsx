@@ -1,10 +1,11 @@
 import  {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import Form from './Form';
-
+import FormData from './FormData';
 function Form2(){
 const [selectFiles, setSelectFiles] = useState<File[] | undefined>(undefined);
 const [showForm, setShowForm] = useState(false);
+const [showData, setShowData] = useState(false);
 const navigate = useNavigate();
 
 const handleFileUpload = (event: React.FormEvent<HTMLInputElement>) => {
@@ -19,6 +20,11 @@ const handleFileUpload = (event: React.FormEvent<HTMLInputElement>) => {
   }
 }
 
+const handleNextClick = (event:React.MouseEvent<HTMLButtonElement>):void=>{
+  event.preventDefault();
+  navigate('/data');
+  setShowData(true);
+};
 const handlePrevious = (event: React.MouseEvent<HTMLButtonElement>):void=>{
   event.preventDefault();
    navigate('/form');
@@ -29,6 +35,7 @@ const resetForm = (event: React.MouseEvent<HTMLButtonElement>):void=>{
   event.preventDefault();
   setSelectFiles(undefined);
 }
+
 console.log(selectFiles);
 
   return(
@@ -199,11 +206,14 @@ console.log(selectFiles);
               </div>
               
             </div>
+            <div>
             <button className="flex w-full mb-2 justify-center rounded bg-green-500 mt-10 p-3 font-medium text-white"
-                // onClick={handleNextClick}
+                onClick={handleNextClick}
                 >
                   Submit
                 </button>
+                {showData && <FormData/>}
+                </div>
                 <div>
                 <button className="flex w-full mb-2 justify-center rounded bg-blue-500 p-3 font-medium text-white"
                 onClick={(event) => handlePrevious(event)}

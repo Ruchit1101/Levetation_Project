@@ -15,17 +15,34 @@ function Form(){
   const [nation, setNation] = useState('');
   const [nextButton, setNextButton] = useState(false);
   const navigate = useNavigate();
-  
-  const handleNextClick=(event:React.FormEvent)=>{
-    event.preventDefault();
-    axios.post('http://localhost:3000/form',{firstname,lastname,email,phone,address1,city,district,postal,region,nation}).then((res)=>{
-      console.log(res);
-    }).catch(error=>{
-      console.log(error);
-    });
-    setNextButton(true);
-   navigate('/form2');
-  }
+  const [formData, setFormData] = useState({
+      firstname:'',
+      lastname:'',
+      email:'',
+      phone:'',
+      address1:'',
+      city:'',
+      district:'',
+      postal:'',
+      region:'',
+      nation:''
+  });
+  const handleNextClick = (event: React.FormEvent) => {
+  event.preventDefault();
+  const target = event.target as HTMLInputElement;
+  const { name, value } = target;
+  setFormData({
+    ...formData,
+    [name]: value,
+  });
+  setNextButton(true);
+  navigate('/form2');
+  axios.post('http://localhost:3000/form', {firstname,lastname,email,phone,address1,city,district,postal,region,nation}).then((res) => {
+    console.log(res);
+  }).catch(error => {
+    console.log(error);
+  });
+};
   const resetForm = (): void => {
     setFirstName('');
     setLastName('');
@@ -59,6 +76,7 @@ function Form(){
                       type="text"
                       placeholder="Enter your first name"
                       className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                      value={formData.firstname}
                       onChange={(event)=>setFirstName(event.target.value)}
                       required
                       
@@ -73,6 +91,7 @@ function Form(){
                       type="text"
                       placeholder="Enter your last name"
                       className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                      value={formData.lastname}
                       onChange={(event)=>setLastName(event.target.value)}
                     />
                   </div>
@@ -86,6 +105,7 @@ function Form(){
                     type="email"
                     placeholder="Enter your email address"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                    value={formData.email}
                     onChange={(event)=>setEmail(event.target.value)}
                     required
                   />
@@ -99,6 +119,7 @@ function Form(){
                     type="number"
                     placeholder="Phone Number"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                    value={formData.phone}
                     onChange={(event)=>setPhone(event.target.value)}
                     required
                   />
@@ -111,6 +132,7 @@ function Form(){
                     type="text"
                     placeholder="Street/Village/Area/HouseNo."
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                    value={formData.address1}
                     onChange={(event)=>setAddress1(event.target.value)}
                     required
                   />
@@ -123,6 +145,7 @@ function Form(){
                     type="text"
                     placeholder="City/Town"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                    value={formData.city}
                     onChange={(event)=>setCity(event.target.value)}
                     required
                   />
@@ -135,6 +158,7 @@ function Form(){
                     type="text"
                     placeholder="District"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                    value={formData.district}
                     onChange={(event)=>setDistrict(event.target.value)}
                     required
                   />
@@ -147,6 +171,7 @@ function Form(){
                     type="number"
                     placeholder="Postal Address"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                    value={formData.postal}
                     onChange={(event)=>setPostal(event.target.value)}
                     required
                   />
@@ -159,6 +184,7 @@ function Form(){
                     type="text"
                     placeholder="State"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                    value={formData.region}
                     onChange={(event)=>setRegion(event.target.value)}
                     required
                   />
@@ -171,6 +197,7 @@ function Form(){
                     type="text"
                     placeholder="Country"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                    value={formData.nation}
                     onChange={(event)=>setNation(event.target.value)}
                     required
                   />
