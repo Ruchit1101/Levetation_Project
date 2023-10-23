@@ -19,12 +19,14 @@ const handleFileUpload = (event: React.FormEvent<HTMLInputElement>) => {
   }
 }
 
-const handlePrevious = ():void=>{
+const handlePrevious = (event: React.MouseEvent<HTMLButtonElement>):void=>{
+  event.preventDefault();
    navigate('/form');
    setShowForm(true);
 };
 
-const resetForm = ():void=>{
+const resetForm = (event: React.MouseEvent<HTMLButtonElement>):void=>{
+  event.preventDefault();
   setSelectFiles(undefined);
 }
 console.log(selectFiles);
@@ -204,13 +206,13 @@ console.log(selectFiles);
                 </button>
                 <div>
                 <button className="flex w-full mb-2 justify-center rounded bg-blue-500 p-3 font-medium text-white"
-                onClick={handlePrevious}
+                onClick={(event) => handlePrevious(event)}
                 >
                   Previous
                 </button>
                 {showForm && <Form/>}</div>
                 <button className="flex w-full  mb-2 justify-center rounded bg-red-500 p-3 font-medium text-white"
-                 onClick={resetForm}
+                 onClick={(event) => resetForm(event)}
                  >
                   Cancel
                 </button>

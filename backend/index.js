@@ -24,11 +24,30 @@ app.post('/login', (req, res)=>{
    else{
       res.json("The email is not in our database. Please register first!");
    }
-  })
-})
+  });
+});
 
 app.post('/register', (req, res)=>{
   EmployeeModel.create(req.body).then(employee =>res.json(employee)).catch(error=>res.json(error))
+})
+
+app.post('/form', (req, res)=>{
+    const {firstname,lastname,email,phone,address1,city,district,postal,region,nation}=req.body;
+    const data = new FormDataModel({firstname,lastname,email,phone,address1,city,district,postal,region,nation})
+    data.save().then(()=>res.json("Data saved successfully")).catch(error=>res.json(error));
+})
+
+app.post('/form2',async(req,res)=>{
+  const {selectFiles} = req.body;
+  const data = new Form2DataModel({
+    uploadedFiles: selectFiles?.map((file) => file.name) || [],
+  });
+  try {
+    await data.save();
+    res.json({ message: 'Data saved successfully' });
+  } catch (error) {
+    res.json({ error: error.message });
+  }
 })
 app.listen(3000,()=>{
     console.log("server is running");

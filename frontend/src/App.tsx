@@ -14,6 +14,7 @@ function App() {
        <Route path='/register' element={<Signup/>}></Route>
        <Route path='/form' element={<Form/>}></Route>
        <Route path='/form2' element={<Form2/>}></Route>
+       {/* <Route path='/data' element={<FormData/>}</Routes> */}
        </Routes>
       </BrowserRouter>
     </>
