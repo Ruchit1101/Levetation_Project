@@ -2,10 +2,10 @@ const mongoose =  require('mongoose');
 
 const EmployeeSchema = new mongoose.Schema({
     name:String,
-    email:String,
+    email:{type:String, unique:true},
     password:String
 });
-const EmployeeModel = mongoose.model("employees",EmployeeSchema)
+const EmployeeModel = mongoose.model("Employee",EmployeeSchema)
 
 const FormDataSchema = new mongoose.Schema({
     firstname:String,
@@ -29,7 +29,7 @@ const Form2DataModel = mongoose.model('form2data',Form2DataSchema);
 
 
 module.exports = {
-    employees:EmployeeModel,
+    Employee:EmployeeModel,
     formdata:FormDataModel,
     form2data:Form2DataModel
 };
