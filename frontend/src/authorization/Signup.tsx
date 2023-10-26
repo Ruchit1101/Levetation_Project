@@ -1,34 +1,30 @@
-import { useState, useContext } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { UserContext } from "./UserContext";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 function Signup(){
-    const [username, setUsername]=useState('');
-    const [email, setEmail]=useState('');
-    const [password, setPassword]=useState('');
-    const {setEmail:setLoggedInUsername, setId} = useContext(UserContext) ?? {};
-    const navigate = useNavigate();
-
-    async function handleClick(event:React.FormEvent) {
-       event.preventDefault();
-    const {data}= await axios.post('/register',{email, password});
-     setLoggedInUsername(email);
-     setId(data.id);
-     navigate('/login');
-    };
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const handleSubmit = (event: React.FormEvent)=>{
+    event.preventDefault();
+    axios.post('http://localhost:3000/register',{username, email, password}).then(res=>{
+      console.log(res)
+    navigate('/login')
+     }).
+    catch(error=>console.log(error));
+    
+  }
     return(
-      <>
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="flex flex-wrap items-center">
           <div className="hidden w-full xl:block xl:w-1/2">
             <div className="py-17.5 px-26 text-center">
-              <Link className="mb-5.5 inline-block" to="/">
-              </Link>
+             
               <p className="2xl:px-20">
-              Levitation believes in finding creative solutions that</p>
-              <p className="2xl:px-20"> transcend conventional thinking.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                suspendisse.
               </p>
 
               <span className="mt-15 inline-block">
@@ -39,10 +35,10 @@ function Signup(){
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  {/* <path
+                  <path
                     d="M33.5825 294.844L30.5069 282.723C25.0538 280.414 19.4747 278.414 13.7961 276.732L13.4079 282.365L11.8335 276.159C4.79107 274.148 0 273.263 0 273.263C0 273.263 6.46998 297.853 20.0448 316.653L35.8606 319.429L23.5737 321.2C25.2813 323.253 27.1164 325.196 29.0681 327.019C48.8132 345.333 70.8061 353.736 78.1898 345.787C85.5736 337.838 75.5526 316.547 55.8074 298.235C49.6862 292.557 41.9968 288.001 34.2994 284.415L33.5825 294.844Z"
                     fill="#F2F2F2"
-                  /> */}
+                  />
                   <path
                     d="M62.8332 281.679L66.4705 269.714C62.9973 264.921 59.2562 260.327 55.2652 255.954L52.019 260.576L53.8812 254.45C48.8923 249.092 45.2489 245.86 45.2489 245.86C45.2489 245.86 38.0686 270.253 39.9627 293.358L52.0658 303.903L40.6299 299.072C41.0301 301.712 41.596 304.324 42.3243 306.893C49.7535 332.77 64.2336 351.323 74.6663 348.332C85.0989 345.341 87.534 321.939 80.1048 296.063C77.8019 288.041 73.5758 280.169 68.8419 273.123L62.8332 281.679Z"
                     fill="#F2F2F2"
@@ -158,12 +154,12 @@ function Signup(){
 
           <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
             <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
-              <span className="mb-1.5 block font-medium">Welcome To Levitation</span>
+              <span className="mb-1.5 block font-medium">Start for free</span>
               <h2 className="mb-9 text-2xl font-bold text-black dark:text-black sm:text-title-xl2">
-                SignUp to Continue
+                Sign Up to TailAdmin
               </h2>
 
-              <form onSubmit={handleClick}>
+              <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-black">
                     Name
@@ -243,7 +239,6 @@ function Signup(){
                       type="password"
                       placeholder="Enter your password"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                      
                     />
 
                     <span className="absolute right-4 top-4">
@@ -311,7 +306,8 @@ function Signup(){
                   <input
                     type="submit"
                     value="Create account"
-                    className="w-full cursor-pointer rounded-lg border bg-blue-500 border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
+                    className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 
+                    bg-blue-500 text-white transition hover:bg-opacity-90"
                   />
                 </div>
                 <div className="mt-6 text-center">
@@ -327,78 +323,6 @@ function Signup(){
           </div>
         </div>
       </div>
-    </>
-    //  <div className="grid grid-cols-1 gap-9 sm:grid-cols-2">
-    //     <div className="flex flex-col gap-9">
-    //     <div className="flex flex-col gap-9">
-         
-    //       {/* <!-- Sign Up Form --> */}
-    //       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-    //         <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
-    //           <h3 className="font-medium text-black dark:text-black">
-    //             Sign Up Form
-    //           </h3>
-    //         </div>
-    //         <form onSubmit={handleClick}>
-    //           <div className="p-6.5">
-    //             <div className="mb-4.5">
-    //               <label className="mb-2.5 block text-black dark:text-black">
-    //                 Name
-    //               </label>
-    //               <input
-    //                 type="text"
-    //                 placeholder="Enter your full name"
-    //                 className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-    //                 onChange={(event)=>setUsername(event.target.value)}
-    //               />
-    //             </div>
-
-    //             <div className="mb-4.5">
-    //               <label className="mb-2.5 block text-black dark:text-black">
-    //                 Email
-    //               </label>
-    //               <input
-    //                 type="email"
-    //                 placeholder="Enter your email address"
-    //                 className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-    //                 onChange={(event)=>setEmail(event.target.value)}
-    //               />
-    //             </div>
-
-    //             <div className="mb-4.5">
-    //               <label className="mb-2.5 block text-black dark:text-black">
-    //                 Password
-    //               </label>
-    //               <input
-    //                 type="password"
-    //                 placeholder="Enter password"
-    //                 className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-    //                 onChange={(event)=>setPassword(event.target.value)}
-    //               />
-    //             </div>
-
-    //             <div className="mb-5.5">
-    //               <label className="mb-2.5 block text-black dark:text-black">
-    //                 Re-type Password
-    //               </label>
-    //               <input
-    //                 type="password"
-    //                 placeholder="Re-enter password"
-    //                 className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-    //               />
-    //             </div>
-
-    //             <button className="flex w-full justify-center rounded bg-blue-500 p-3 font-medium text-white">
-    //               Sign Up
-    //             </button>
-    //             <p>Already Have an account</p>
-    //             <Link to="/login" className="flex w-full justify-center rounded bg-blue-500 p-2 mt-3 font-medium text-white">Login</Link>
-    //           </div>
-    //         </form>
-    //       </div>
-    //     </div>
-    //   </div>
-    //     </div>
         
     )
 }

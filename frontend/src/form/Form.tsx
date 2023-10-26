@@ -1,61 +1,48 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-// import React from 'react';
 function Form(){
-  const [firstname, setFirstName]= useState('');
-  const [lastname, setLastName]= useState('');
-  const [email, setEmail]= useState('');
-  const [phone, setPhone]= useState('');
-  const [address1, setAddress1]= useState('');
-  const [city, setCity]= useState('');
-  const [district, setDistrict] = useState('');
-  const [postal, setPostal] = useState('');
-  const [region, setRegion] = useState('');
-  const [nation, setNation] = useState('');
-  const [nextButton, setNextButton] = useState(false);
-  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-      firstname:'',
-      lastname:'',
-      email:'',
-      phone:'',
-      address1:'',
-      city:'',
-      district:'',
-      postal:'',
-      region:'',
-      nation:''
+    firstname:'',
+    lastname:'',
+    email:'',
+    phone:'',
+    street:'',
+    city:'',
+    district:'',
+    postal:'',
+    state:'',
+    nation:'',
   });
-  const handleNextClick = (event: React.FormEvent) => {
-  event.preventDefault();
-  const target = event.target as HTMLInputElement;
-  const { name, value } = target;
+//  const [firstname, setFirstName] = useState('');
+//  const [lastname, setLastName] = useState('');
+//  const [email, setEmail] = useState('');
+//  const [phone, setPhone] = useState('');
+//  const [street, setStreet] = useState('');
+//  const [city, setCity] = useState('');const [district, setDistrict] = useState('');
+//  const [postal, setPostal] = useState('');
+//  const [state, setState] = useState('');
+//  const [nation, setNation] = useState('');
+const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
+  const { name, value } = event.currentTarget; 
   setFormData({
     ...formData,
-    [name]: value,
-  });
-  setNextButton(true);
-  navigate('/form2');
-  axios.post('http://localhost:3000/form', {firstname,lastname,email,phone,address1,city,district,postal,region,nation}).then((res) => {
-    console.log(res);
-  }).catch(error => {
-    console.log(error);
+    [name]: value, 
   });
 };
-  const resetForm = (): void => {
-    setFirstName('');
-    setLastName('');
-    setEmail('');
-    setPhone('');
-    setAddress1('');
-    setCity('');
-    setDistrict('');
-    setPostal('');
-    setRegion('');
-    setNation('');
-    
-  };
+
+ const handleNext= async(event:React.FormEvent)=>{
+    event.preventDefault();
+   
+    try{
+    const res = await axios.post('http://localhost:3000/form');
+    console.log("Data Saved", res.data);
+    }
+    catch(error){
+      console.log("Error in saving form data");
+      throw(error);
+    }
+ };
     return(
         <div className="grid grid-cols-1 gap-9 sm:grid-cols-2">
         <div className="flex flex-col gap-9">
@@ -65,7 +52,7 @@ function Form(){
                 Details Form
               </h3>
             </div>
-            <form action="#">
+            <form onSubmit={handleNext}>
               <div className="p-6.5">
                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
                   <div className="w-full xl:w-1/2">
@@ -77,7 +64,7 @@ function Form(){
                       placeholder="Enter your first name"
                       className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                       value={formData.firstname}
-                      onChange={(event)=>setFirstName(event.target.value)}
+                      onChange={handleChange}
                       required
                       
                     />
@@ -92,7 +79,7 @@ function Form(){
                       placeholder="Enter your last name"
                       className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                       value={formData.lastname}
-                      onChange={(event)=>setLastName(event.target.value)}
+                      onChange={handleChange}
                     />
                   </div>
                 </div>
@@ -106,7 +93,7 @@ function Form(){
                     placeholder="Enter your email address"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                     value={formData.email}
-                    onChange={(event)=>setEmail(event.target.value)}
+                      onChange={handleChange}
                     required
                   />
                 </div>
@@ -120,7 +107,7 @@ function Form(){
                     placeholder="Phone Number"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                     value={formData.phone}
-                    onChange={(event)=>setPhone(event.target.value)}
+                      onChange={handleChange}
                     required
                   />
                 </div>
@@ -132,8 +119,8 @@ function Form(){
                     type="text"
                     placeholder="Street/Village/Area/HouseNo."
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                    value={formData.address1}
-                    onChange={(event)=>setAddress1(event.target.value)}
+                    value={formData.street}
+                    onChange={handleChange}
                     required
                   />
                 </div>
@@ -146,7 +133,7 @@ function Form(){
                     placeholder="City/Town"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                     value={formData.city}
-                    onChange={(event)=>setCity(event.target.value)}
+                    onChange={handleChange}
                     required
                   />
                 </div>
@@ -159,7 +146,7 @@ function Form(){
                     placeholder="District"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                     value={formData.district}
-                    onChange={(event)=>setDistrict(event.target.value)}
+                      onChange={handleChange}
                     required
                   />
                 </div>
@@ -172,7 +159,7 @@ function Form(){
                     placeholder="Postal Address"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                     value={formData.postal}
-                    onChange={(event)=>setPostal(event.target.value)}
+                      onChange={handleChange}
                     required
                   />
                 </div>
@@ -184,8 +171,8 @@ function Form(){
                     type="text"
                     placeholder="State"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                    value={formData.region}
-                    onChange={(event)=>setRegion(event.target.value)}
+                    value={formData.state}
+                      onChange={handleChange}
                     required
                   />
                 </div>
@@ -198,16 +185,17 @@ function Form(){
                     placeholder="Country"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                     value={formData.nation}
-                    onChange={(event)=>setNation(event.target.value)}
+                    onChange={handleChange}
                     required
                   />
                 </div>
                 <button className="flex w-full mb-2 justify-center rounded bg-green-500 p-3 font-medium text-white"
-                onClick={handleNextClick}>
+                // onClick={}
+                >
                   Next
                 </button>
                 <button className="flex w-full mb-2 justify-center rounded bg-red-500 p-3 font-medium text-white"
-                 onClick={resetForm}
+                //  onClick={resetForm}
                  >
                   Cancel
                 </button>
