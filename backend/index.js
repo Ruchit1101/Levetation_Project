@@ -13,6 +13,7 @@ app.use(cors());
 //     origin:process.env.CLIENT_URL,
 // }));
 dotenv.config();
+const port = process.env.YOUR_PORT || 5000
 mongoose.connect(process.env.MONGO_URL)
   .then(() => {
     console.log('Connected to MongoDB');
@@ -20,7 +21,7 @@ mongoose.connect(process.env.MONGO_URL)
   .catch((error) => {
     console.error('Error connecting to MongoDB:', error);
   });
-  
+
   app.get('/',(req, res)=>{
     res.json("Welcom to Levitation Backend");
   })
@@ -83,7 +84,7 @@ app.post('/form', async(req, res)=>{
     res.status(500).json({error:'Error in saving data'});
   }
 });
-app.listen(3000, ()=>{
+app.listen(port, ()=>{
     console.log("Server is live");
 })
 // 
