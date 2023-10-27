@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
+import { BEURI } from "../App";
 
 function Login(){
   const [email, setEmail]= useState('');
@@ -9,7 +10,7 @@ function Login(){
 
   const handleClick = (event:React.FormEvent)=>{
     event.preventDefault();
-    axios.post('https://busy-dog-bell-bottoms.cyclic.app/login',{email, password}).then(res=>{
+    axios.post(`${BEURI}/login`,{email, password}).then(res=>{
       console.log(res)
       if(res.data === "Success"){
         navigate('/form')

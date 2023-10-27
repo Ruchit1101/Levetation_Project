@@ -23,3 +23,4 @@ function App() {
 }
 
 export default App;
+export const BEURI = "https://baby-blue-crocodile-tutu.cyclic.app";
