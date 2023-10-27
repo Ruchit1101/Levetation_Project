@@ -14,15 +14,6 @@ function Form(){
     state:'',
     nation:'',
   });
-//  const [firstname, setFirstName] = useState('');
-//  const [lastname, setLastName] = useState('');
-//  const [email, setEmail] = useState('');
-//  const [phone, setPhone] = useState('');
-//  const [street, setStreet] = useState('');
-//  const [city, setCity] = useState('');const [district, setDistrict] = useState('');
-//  const [postal, setPostal] = useState('');
-//  const [state, setState] = useState('');
-//  const [nation, setNation] = useState('');
 const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
   const { name, value } = event.currentTarget; 
   setFormData({
@@ -43,6 +34,11 @@ const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
       throw(error);
     }
  };
+ const resetForm = (event:React.FormEvent)=>{
+  event.preventDefault();
+  // const form = event.target as HTMLFormElement;
+  // form.reset();
+ }
     return(
         <div className="grid grid-cols-1 gap-9 sm:grid-cols-2">
         <div className="flex flex-col gap-9">
@@ -195,7 +191,7 @@ const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
                   Next
                 </button>
                 <button className="flex w-full mb-2 justify-center rounded bg-red-500 p-3 font-medium text-white"
-                //  onClick={resetForm}
+                 onClick={resetForm}
                  >
                   Cancel
                 </button>

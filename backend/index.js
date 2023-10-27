@@ -2,7 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const EmployeeModel = require('./model/Employee.ts');
+const { EmployeeModel, FormModel } = require('./model/Employee.ts');
+
 const bcrypt = require('bcryptjs');
 const app = express();
 app.use(express.json());
@@ -48,10 +49,11 @@ app.post('/register', (req, res)=>{
 //     })
 // })
 app.post('/login', (req, res)=>{
+  // console.log(EmployeeModel);
     const {email, password} = req.body;
-    EmployeeModel.findOne({email:email}).then(user=>{
+    EmployeeModel.findOne({email: email}).then(user=>{
         if(user){
-            if(user){
+            if(user.password === password){
                 res.json("Success");
             }
             else{
@@ -62,7 +64,19 @@ app.post('/login', (req, res)=>{
             res.json("Please register first");
         }
     })
-})
+});
+
+app.post('/form', async(req, res)=>{
+  try{
+    const userData = req.body;
+    const newUser = new FormModel(userData);
+    await newUser.save();
+    res.json(newUser);
+  }
+  catch(error){
+    res.status(500).json({error:'Error in saving data'});
+  }
+});
 app.listen(3000, ()=>{
     console.log("Server is live");
 })
