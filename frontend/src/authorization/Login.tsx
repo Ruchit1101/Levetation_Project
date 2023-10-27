@@ -9,7 +9,7 @@ function Login(){
 
   const handleClick = (event:React.FormEvent)=>{
     event.preventDefault();
-    axios.post('https://busy-dog-bell-bottoms.cyclic.app/login',{email, password}).then(res=>{
+    axios.post('http://localhost:3000/login',{email, password}).then(res=>{
       console.log(res)
       if(res.data === "Success"){
         navigate('/form')

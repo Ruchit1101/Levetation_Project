@@ -9,7 +9,7 @@ function Signup(){
   const navigate = useNavigate();
   const handleSubmit = (event: React.FormEvent)=>{
     event.preventDefault();
-    axios.post('https://busy-dog-bell-bottoms.cyclic.app/register',{username, email, password}).then(res=>{
+    axios.post('http://localhost:3000/register',{username, email, password}).then(res=>{
       console.log(res)
     navigate('/login')
      }).
