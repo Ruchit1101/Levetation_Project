@@ -22,38 +22,23 @@ mongoose.connect(process.env.MONGO_URL)
   });
 
 const bcryptSalt= bcrypt.genSaltSync(10);
-// app.post('/register', (req, res)=>{
-//   const {username, password} = req.body;
-//   const hashedPassword = bcrypt.hashSync(password,bcryptSalt);
-//   EmployeeModel.create({username, password:hashedPassword}).then(registration=>res.json(registration)).catch(error=>res.json(error))
-// })
 app.post('/register', (req, res)=>{
-  EmployeeModel.create(req.body).then(registration=>res.json(registration)).catch(error=>res.json(error))
+  const {username, email, password} = req.body;
+  console.log(req.body);
+  const hashedPassword = bcrypt.hashSync(password,bcryptSalt);
+  EmployeeModel.create({username, email, password:hashedPassword}).then(registration=>res.json(registration)).catch(error=>res.json(error))
 })
-  
-// app.post('/login', (req, res)=>{
-//     const {email, password} = req.body;
-//     EmployeeModel.findOne({email:email}).then(user=>{
-//         if(user){
-//           const passOk =   bcrypt.compareSync(password, user.password)
-//             if(user){
-//                 res.json("Success");
-//             }
-//             else{
-//                 res.json("Invalid Credentials!");
-//             }
-//         }
-//         else{
-//             res.json("Please register first");
-//         }
-//     })
+// app.post('/register', (req, res)=>{
+//   EmployeeModel.create(req.body).then(registration=>res.json(registration)).catch(error=>res.json(error))
 // })
+  
 app.post('/login', (req, res)=>{
-  // console.log(EmployeeModel);
     const {email, password} = req.body;
-    EmployeeModel.findOne({email: email}).then(user=>{
+    console.log(req.body);
+    EmployeeModel.findOne({email:email}).then(user=>{
         if(user){
-            if(user.password === password){
+          const passOk =   bcrypt.compareSync(password, user.password)
+            if(passOk){
                 res.json("Success");
             }
             else{
@@ -64,7 +49,24 @@ app.post('/login', (req, res)=>{
             res.json("Please register first");
         }
     })
-});
+})
+// app.post('/login', (req, res)=>{
+//   // console.log(EmployeeModel);
+//     const {email, password} = req.body;
+//     EmployeeModel.findOne({email: email}).then(user=>{
+//         if(user){
+//             if(user.password === password){
+//                 res.json("Success");
+//             }
+//             else{
+//                 res.json("Invalid Credentials!");
+//             }
+//         }
+//         else{
+//             res.json("Please register first");
+//         }
+//     })
+// });
 
 app.post('/form', async(req, res)=>{
   try{

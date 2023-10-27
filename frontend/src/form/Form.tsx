@@ -1,6 +1,6 @@
 import { useState } from "react";
 // import { useNavigate } from "react-router-dom";
-import axios from 'axios';
+// import axios from 'axios';
 function Form(){
   const [formData, setFormData] = useState({
     firstname:'',
@@ -14,31 +14,31 @@ function Form(){
     state:'',
     nation:'',
   });
-const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
-  const { name, value } = event.currentTarget; 
-  setFormData({
-    ...formData,
-    [name]: value, 
-  });
-};
+// const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
+//   const { name, value } = event.currentTarget; 
+//   setFormData({
+//     ...formData,
+//     [name]: value, 
+//   });
+// };
 
- const handleNext= async(event:React.FormEvent)=>{
-    event.preventDefault();
+//  const handleNext= async(event:React.FormEvent)=>{
+//     event.preventDefault();
    
-    try{
-    const res = await axios.post('http://localhost:3000/form');
-    console.log("Data Saved", res.data);
-    }
-    catch(error){
-      console.log("Error in saving form data");
-      throw(error);
-    }
- };
- const resetForm = (event:React.FormEvent)=>{
-  event.preventDefault();
-  // const form = event.target as HTMLFormElement;
+//     try{
+//     const res = await axios.post('http://localhost:3000/form');
+//     console.log("Data Saved", res.data);
+//     }
+//     catch(error){
+//       console.log("Error in saving form data");
+//       throw(error);
+//     }
+//  };
+//  const resetForm = (event:React.FormEvent)=>{
+//   event.preventDefault();
+//   // const form = event.target as HTMLFormElement;
   // form.reset();
- }
+//  }
     return(
         <div className="grid grid-cols-1 gap-9 sm:grid-cols-2">
         <div className="flex flex-col gap-9">
@@ -48,7 +48,7 @@ const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
                 Details Form
               </h3>
             </div>
-            <form onSubmit={handleNext}>
+            <form>
               <div className="p-6.5">
                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
                   <div className="w-full xl:w-1/2">
@@ -60,7 +60,7 @@ const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
                       placeholder="Enter your first name"
                       className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                       value={formData.firstname}
-                      onChange={handleChange}
+                      // onChange={handleChange}
                       required
                       
                     />
@@ -75,7 +75,7 @@ const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
                       placeholder="Enter your last name"
                       className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                       value={formData.lastname}
-                      onChange={handleChange}
+                      // onChange={handleChange}
                     />
                   </div>
                 </div>
@@ -89,7 +89,7 @@ const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
                     placeholder="Enter your email address"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                     value={formData.email}
-                      onChange={handleChange}
+                    //   onChange={handleChange}
                     required
                   />
                 </div>
@@ -102,8 +102,8 @@ const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
                     type="number"
                     placeholder="Phone Number"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                    value={formData.phone}
-                      onChange={handleChange}
+                    // value={formData.phone}
+                    //   onChange={handleChange}
                     required
                   />
                 </div>
@@ -115,8 +115,8 @@ const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
                     type="text"
                     placeholder="Street/Village/Area/HouseNo."
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                    value={formData.street}
-                    onChange={handleChange}
+                    // value={formData.street}
+                    // onChange={handleChange}
                     required
                   />
                 </div>
@@ -128,8 +128,8 @@ const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
                     type="text"
                     placeholder="City/Town"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                    value={formData.city}
-                    onChange={handleChange}
+                    // value={formData.city}
+                    // onChange={handleChange}
                     required
                   />
                 </div>
@@ -141,8 +141,8 @@ const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
                     type="text"
                     placeholder="District"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                    value={formData.district}
-                      onChange={handleChange}
+                    // value={formData.district}
+                    //   onChange={handleChange}
                     required
                   />
                 </div>
@@ -154,8 +154,8 @@ const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
                     type="number"
                     placeholder="Postal Address"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                    value={formData.postal}
-                      onChange={handleChange}
+                    // value={formData.postal}
+                    //   onChange={handleChange}
                     required
                   />
                 </div>
@@ -167,8 +167,8 @@ const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
                     type="text"
                     placeholder="State"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                    value={formData.state}
-                      onChange={handleChange}
+                    // value={formData.state}
+                    //   onChange={handleChange}
                     required
                   />
                 </div>
@@ -180,8 +180,8 @@ const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
                     type="text"
                     placeholder="Country"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                    value={formData.nation}
-                    onChange={handleChange}
+                    // value={formData.nation}
+                    // onChange={handleChange}
                     required
                   />
                 </div>
@@ -191,7 +191,7 @@ const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
                   Next
                 </button>
                 <button className="flex w-full mb-2 justify-center rounded bg-red-500 p-3 font-medium text-white"
-                 onClick={resetForm}
+                //  onClick={resetForm}
                  >
                   Cancel
                 </button>
