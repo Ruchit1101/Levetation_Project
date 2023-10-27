@@ -20,8 +20,9 @@ mongoose.connect(process.env.MONGO_URL)
   .catch((error) => {
     console.error('Error connecting to MongoDB:', error);
   });
+  
   app.get('/',(req, res)=>{
-    res.send("Success");
+    res.json("Welcom to Levitation Backend");
   })
 
 const bcryptSalt= bcrypt.genSaltSync(10);
