@@ -7,11 +7,11 @@ const { EmployeeModel, FormModel } = require('./model/Employee.ts');
 const bcrypt = require('bcryptjs');
 const app = express();
 app.use(express.json());
-// app.use(cors());
-app.use(cors({
-    credentials:true,
-    origin:process.env.CLIENT_URL,
-}));
+app.use(cors());
+// app.use(cors({
+//     credentials:true,
+//     origin:process.env.CLIENT_URL,
+// }));
 dotenv.config();
 const port = process.env.YOUR_PORT || 5000
 mongoose.connect(process.env.MONGO_URL)
