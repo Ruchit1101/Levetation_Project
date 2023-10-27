@@ -23,4 +23,4 @@ function App() {
 }
 
 export default App;
-export const BEURI = "https://baby-blue-crocodile-tutu.cyclic.app";
+export const BEURI = "https://long-plum-shark-tie.cyclic.app";

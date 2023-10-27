@@ -14,7 +14,8 @@ app.use(cors());
 // }));
 dotenv.config();
 const port = process.env.YOUR_PORT || 5000
-mongoose.connect(process.env.MONGO_URL)
+const DBURI = process.env.MONGO_URL || "mongodb+srv://ruchitraushan:h56blrUg0HJZ7N2F@cluster1.wael1r0.mongodb.net/?retryWrites=true&w=majority"
+mongoose.connect(DBURI)
   .then(() => {
     console.log('Connected to MongoDB');
   })
