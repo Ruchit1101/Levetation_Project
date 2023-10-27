@@ -2,7 +2,8 @@ import { useState } from "react";
 // import { useNavigate } from "react-router-dom";
 // import axios from 'axios';
 function Form(){
-  const [formData, setFormData] = useState({
+  // @ignore
+  const [formData] = useState({
     firstname:'',
     lastname:'',
     email:'',
